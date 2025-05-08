@@ -1,28 +1,35 @@
-# 📞 Cross-Platform Phonebook Manager
+# 📞 Phonebook Manager (CLI + Web Interface)
 
-A lightweight C-based contact manager with a modern PHP web interface.
-
-Supports **Add**, **Search**, **Edit**, and **Delete** operations via **web** or **command line**. Built for **Termux**, **Linux**, and **Windows WSL**.
+A simple contact management application with both CLI and web interface support.  
+Supports **Add**, **Search**, **Edit**, **Delete**, and **List** contacts. Data is stored in a file using binary tree logic.
 
 ---
 
-## 📂 File Structure
+## ✅ Features
+
+- Add/Search/Edit/Delete/List contacts
+- CLI and browser interface
+- Works on Android (Termux), Ubuntu/Linux, and Windows (WSL)
+- Simple C backend with PHP frontend
+
+---
+
+## 📁 File Structure
 
 ```
 www/
-├── index.php                  # Web UI
-├── phonebook/
-│   ├── phonebook             # Compiled C executable
-│   └── phonebook.c           # Source code
+├── index.php               # Web frontend
+├── phonebook/              # Backend folder
+│   ├── phonebook           # Compiled C binary
+│   └── phonebook.c         # Source code
 └── phonebook_data/
-    └── contacts.txt          # Stored contacts
+    └── contacts.txt        # Contact storage file
 ```
 
 ---
 
-## ⚙️ Installation Guide
+## ⚙️ Termux (Android) Installation
 
-### ✅ Termux (Android)
 ```bash
 pkg update && pkg install php gcc git -y
 
@@ -37,11 +44,13 @@ chmod +x phonebook/phonebook
 # Start PHP server
 php -S localhost:8080
 ```
-Then open [http://localhost:8080](http://localhost:8080)
+
+**Visit:** `http://localhost:8080` in your Android browser
 
 ---
 
-### ✅ Ubuntu / Linux
+## 🐧 Ubuntu / Linux Installation
+
 ```bash
 sudo apt update && sudo apt install php gcc apache2 -y
 
@@ -53,7 +62,7 @@ cd /var/www/phonebook
 gcc phonebook/phonebook.c -o phonebook/phonebook
 sudo chmod +x phonebook/phonebook
 
-# Set file permissions
+# Create and configure data directory
 sudo mkdir -p /var/www/phonebook_data
 sudo chown -R www-data:www-data /var/www/phonebook_data
 sudo chmod 755 /var/www/phonebook_data
@@ -62,49 +71,64 @@ sudo chmod 755 /var/www/phonebook_data
 sudo systemctl restart apache2
 ```
 
-Access it at: [http://localhost/phonebook/index.php](http://localhost/phonebook/index.php)
+**Visit:** `http://localhost/phonebook/index.php` in your browser
 
 ---
 
-### ✅ Windows WSL
-1. Install [WSL2 + Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/)
-2. Follow **Ubuntu/Linux** steps above inside WSL terminal.
+## ✏️ Modify File Paths
 
----
+### phonebook.c
 
-## 🛠 CLI Usage
-```bash
-./phonebook/phonebook add "Alice" "1234567890"
-./phonebook/phonebook list
-./phonebook/phonebook search "Alice"
-./phonebook/phonebook edit "Alice" "0987654321"
-./phonebook/phonebook delete "Alice"
+```c
+#define FILE_NAME "/var/www/phonebook_data/contacts.txt"
+```
+
+### index.php
+
+```php
+$ROOT_PATH = "/var/www/phonebook";
+$PHONEBOOK = "$ROOT_PATH/phonebook/phonebook";
 ```
 
 ---
 
-## 🌐 Web Interface Features
-- **Add Contact**
-- **Search Contact**
-- **Edit Contact**
-- **Delete Contact**
-- Live display of all contacts
+## 🖥 CLI Commands
+
+```bash
+# Add contact
+./phonebook add "John Doe" "1234567890"
+
+# Search contact
+./phonebook search "John"
+
+# Edit contact
+./phonebook edit "John Doe" "0987654321"
+
+# Delete contact
+./phonebook delete "John Doe"
+
+# List all contacts
+./phonebook list
+```
 
 ---
 
-## 🐞 Troubleshooting
+## ⚠️ Troubleshooting
 
-**Common fixes:**
+### Apache/PHP Errors:
 ```bash
-# Apache/PHP not seeing your files?
 sudo chown -R www-data:www-data /var/www/phonebook_data
-sudo chmod +x /var/www/phonebook/phonebook
-
-# View Apache errors
+sudo chmod 755 /var/www/phonebook/phonebook
 sudo tail -f /var/log/apache2/error.log
+```
+
+### Termux Storage:
+```bash
+termux-setup-storage
 ```
 
 ---
 
 ## 📜 License
-MIT © 2025 [@workforakng](https://github.com/workforakng)
+
+MIT License © 2024
