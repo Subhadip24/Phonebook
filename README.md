@@ -1,161 +1,110 @@
-# 📞 Phonebook Manager
+# 📞 Cross-Platform Phonebook Manager
 
-A simple CLI + Web-based phonebook manager written in C (for performance) with a PHP frontend. Cross-platform support for:
+A lightweight C-based contact manager with a modern PHP web interface.
 
-- **Android (Termux)**
-- **Ubuntu/Linux**
-- **Windows (via WSL2)**
-
-## ✅ Features
-
-- Add / Search / Edit / Delete Contacts
-- Binary-tree optimized contact storage
-- Simple web interface using PHP
-- Command-line interface support
+Supports **Add**, **Search**, **Edit**, and **Delete** operations via **web** or **command line**. Built for **Termux**, **Linux**, and **Windows WSL**.
 
 ---
 
-## 📁 File Structure
+## 📂 File Structure
 
 ```
-Phonebook/
-├── src/
-│   ├── phonebook.c       # Core app logic (C)
-│   └── index.php         # Web UI
-├── README.md
+www/
+├── index.php                  # Web UI
+├── phonebook/
+│   ├── phonebook             # Compiled C executable
+│   └── phonebook.c           # Source code
+└── phonebook_data/
+    └── contacts.txt          # Stored contacts
 ```
 
 ---
 
-## 🚀 Installation Instructions
+## ⚙️ Installation Guide
 
-### 📱 Termux (Android)
-
+### ✅ Termux (Android)
 ```bash
-pkg update && pkg upgrade
-pkg install php gcc git -y
+pkg update && pkg install php gcc git -y
 
+# Clone project
 git clone https://github.com/workforakng/Phonebook.git
-cd Phonebook
+cd Phonebook/www
 
-# Compile the binary
-gcc src/phonebook.c -o ~/www/phonebook/phonebook
-chmod +x ~/www/phonebook/phonebook
+# Compile the C program
+gcc phonebook/phonebook.c -o phonebook/phonebook
+chmod +x phonebook/phonebook
 
-# Setup web folder
-mkdir -p ~/www/phonebook_data
-cp src/index.php ~/www/
-
-# Start the PHP web server
-php -S localhost:8080 -t ~/www
+# Start PHP server
+php -S localhost:8080
 ```
-
-**Access**: [http://localhost:8080](http://localhost:8080)
+Then open [http://localhost:8080](http://localhost:8080)
 
 ---
 
-### 🐧 Ubuntu/Linux
-
-#### 1. Install Dependencies
-
+### ✅ Ubuntu / Linux
 ```bash
-sudo apt update
-sudo apt install php gcc apache2 -y
-```
+sudo apt update && sudo apt install php gcc apache2 -y
 
-#### 2. Setup Project
+# Move files to Apache web root
+sudo cp -r ~/Phonebook/www /var/www/phonebook
+cd /var/www/phonebook
 
-```bash
-git clone https://github.com/workforakng/Phonebook.git
-cd Phonebook
-```
+# Compile the phonebook executable
+gcc phonebook/phonebook.c -o phonebook/phonebook
+sudo chmod +x phonebook/phonebook
 
-#### 3. Update Paths
-
-Edit `phonebook.c`:
-
-```c
-#define FILE_NAME "/var/www/phonebook_data/contacts.txt"
-```
-
-Edit `index.php`:
-
-```php
-$ROOT_PATH = "/var/www";
-$PHONEBOOK = "$ROOT_PATH/phonebook/phonebook";
-```
-
-#### 4. Compile and Deploy
-
-```bash
+# Set file permissions
 sudo mkdir -p /var/www/phonebook_data
 sudo chown -R www-data:www-data /var/www/phonebook_data
 sudo chmod 755 /var/www/phonebook_data
 
-sudo mkdir -p /var/www/phonebook
-sudo gcc src/phonebook.c -o /var/www/phonebook/phonebook
+# Restart Apache
+sudo systemctl restart apache2
+```
+
+Access it at: [http://localhost/phonebook/index.php](http://localhost/phonebook/index.php)
+
+---
+
+### ✅ Windows WSL
+1. Install [WSL2 + Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/)
+2. Follow **Ubuntu/Linux** steps above inside WSL terminal.
+
+---
+
+## 🛠 CLI Usage
+```bash
+./phonebook/phonebook add "Alice" "1234567890"
+./phonebook/phonebook list
+./phonebook/phonebook search "Alice"
+./phonebook/phonebook edit "Alice" "0987654321"
+./phonebook/phonebook delete "Alice"
+```
+
+---
+
+## 🌐 Web Interface Features
+- **Add Contact**
+- **Search Contact**
+- **Edit Contact**
+- **Delete Contact**
+- Live display of all contacts
+
+---
+
+## 🐞 Troubleshooting
+
+**Common fixes:**
+```bash
+# Apache/PHP not seeing your files?
+sudo chown -R www-data:www-data /var/www/phonebook_data
 sudo chmod +x /var/www/phonebook/phonebook
 
-sudo cp src/index.php /var/www/html/index.php
-```
-
-#### 5. Start Apache
-
-```bash
-sudo systemctl start apache2
-sudo systemctl enable apache2
-```
-
-**Access**: [http://localhost/index.php](http://localhost/index.php)
-
----
-
-## 🖥 CLI Usage
-
-```bash
-phonebook add "John Doe" "1234567890"
-phonebook list
-phonebook search "John"
-phonebook edit "John Doe" "9876543210"
-phonebook delete "John Doe"
-```
-
-> Replace `phonebook` with `/var/www/phonebook/phonebook` or `~/www/phonebook/phonebook` depending on OS.
-
----
-
-## ⚙️ Troubleshooting
-
-### PHP/Web Issues
-
-```bash
-sudo chown -R www-data:www-data /var/www/phonebook_data
-sudo chmod 755 /var/www/phonebook/phonebook
-```
-
-### Apache Error Logs
-
-```bash
+# View Apache errors
 sudo tail -f /var/log/apache2/error.log
 ```
 
-### Termux-Specific
-
-```bash
-termux-setup-storage
-termux-change-repo
-```
-
 ---
 
-## 🔐 Suggestions for Production
-
-- Add `.htaccess` to restrict access
-- Add simple password-based login to `index.php`
-- Use SQLite or JSON backend for more structure
-
----
-
-## 🧾 License
-
-MIT License © 2024 [@workforakng](https://github.com/workforakng)
+## 📜 License
+MIT © 2025 [@workforakng](https://github.com/workforakng)
