@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Phonebook Web Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             --light: #f8f9fa;
             --dark: #212529;
         }
-        
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f5f7fa;
@@ -59,19 +60,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 20px;
             color: #333;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         h1 {
             color: var(--primary);
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         h2 {
             color: var(--primary);
             font-size: 1.3rem;
@@ -79,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-bottom: 2px solid var(--primary);
             padding-bottom: 8px;
         }
-        
+
         .card {
             background: white;
             border-radius: 10px;
@@ -88,15 +89,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 25px;
             transition: transform 0.3s ease;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
         }
-        
+
         .form-group {
             margin-bottom: 15px;
         }
-        
+
         input[type="text"] {
             width: 100%;
             padding: 10px;
@@ -105,12 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 16px;
             transition: border 0.3s;
         }
-        
+
         input[type="text"]:focus {
             border-color: var(--primary);
             outline: none;
         }
-        
+
         button {
             background-color: var(--primary);
             color: white;
@@ -121,19 +122,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 16px;
             transition: background-color 0.3s;
         }
-        
+
         button:hover {
             background-color: #3a56d4;
         }
-        
+
         .delete-btn {
             background-color: var(--danger);
         }
-        
+
         .delete-btn:hover {
             background-color: #e5177e;
         }
-        
+
         pre {
             background: #f8f9fa;
             padding: 15px;
@@ -141,12 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-left: 4px solid var(--primary);
             overflow-x: auto;
         }
-        
+
         .icon {
             margin-right: 8px;
         }
-        
-        /* SweetAlert-like notification */
+
         .alert-overlay {
             position: fixed;
             top: 0;
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             pointer-events: none;
             transition: opacity 0.3s;
         }
-        
+
         .alert-box {
             background: white;
             padding: 25px;
@@ -174,35 +174,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             transform: translateY(20px);
             transition: transform 0.3s;
         }
-        
+
         .alert-box.success {
             border-top: 4px solid var(--success);
         }
-        
+
         .alert-box.error {
             border-top: 4px solid var(--danger);
         }
-        
+
         .alert-box.show {
             transform: translateY(0);
         }
-        
+
         .alert-overlay.show {
             opacity: 1;
             pointer-events: all;
         }
-        
+
         .alert-title {
             font-size: 1.3rem;
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .alert-message {
             margin-bottom: 20px;
             line-height: 1.5;
         }
-        
+
         .alert-btn {
             padding: 8px 20px;
             border-radius: 5px;
@@ -210,15 +210,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             cursor: pointer;
             font-weight: 500;
         }
-        
+
         .alert-btn.success {
             background-color: var(--success);
             color: white;
         }
-        
+
         .alert-btn.error {
             background-color: var(--danger);
             color: white;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            body, .container {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            input[type="text"], button {
+                font-size: 15px;
+                padding: 10px;
+            }
+
+            .alert-box {
+                width: 95%;
+                padding: 20px;
+            }
+
+            h1, h2 {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -226,7 +251,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h1><i class="fas fa-address-book icon"></i>Phonebook Manager</h1>
 
-    <!-- Add Contact Form -->
     <div class="card">
         <h2><i class="fas fa-user-plus icon"></i>Add Contact</h2>
         <form method="POST">
@@ -241,7 +265,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Search Form -->
     <div class="card">
         <h2><i class="fas fa-search icon"></i>Search</h2>
         <form method="POST">
@@ -253,7 +276,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Edit Contact Form -->
     <div class="card">
         <h2><i class="fas fa-edit icon"></i>Edit Contact</h2>
         <form method="POST">
@@ -268,7 +290,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Delete Contact Form -->
     <div class="card">
         <h2><i class="fas fa-trash-alt icon"></i>Delete Contact</h2>
         <form method="POST" id="deleteForm">
@@ -280,14 +301,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- List of all contacts -->
     <div class="card">
         <h2><i class="fas fa-list icon"></i>All Contacts</h2>
         <pre><?= htmlspecialchars(run_command("list")) ?></pre>
     </div>
 </div>
 
-<!-- Alert Box -->
 <div class="alert-overlay" id="alertOverlay">
     <div class="alert-box" id="alertBox">
         <div class="alert-title" id="alertTitle"></div>
@@ -297,23 +316,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script>
-// Custom alert function
 function showAlert(title, message, isSuccess) {
     const overlay = document.getElementById('alertOverlay');
     const box = document.getElementById('alertBox');
     const alertTitle = document.getElementById('alertTitle');
     const alertMessage = document.getElementById('alertMessage');
     const alertBtn = document.getElementById('alertBtn');
-    
+
     alertTitle.textContent = title;
     alertMessage.textContent = message;
-    
+
     box.className = isSuccess ? 'alert-box success' : 'alert-box error';
     alertBtn.className = isSuccess ? 'alert-btn success' : 'alert-btn error';
-    
+
     overlay.classList.add('show');
     box.classList.add('show');
-    
+
     alertBtn.onclick = function() {
         overlay.classList.remove('show');
         box.classList.remove('show');
@@ -323,27 +341,25 @@ function showAlert(title, message, isSuccess) {
     };
 }
 
-// Handle form submissions
 document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(form);
-        
-        // Special confirmation for delete
+
         if (form.id === 'deleteForm') {
             const name = formData.get('name');
             if (!confirm(`Are you sure you want to delete "${name}"?`)) {
                 return;
             }
         }
-        
+
         try {
             const response = await fetch('', {
                 method: 'POST',
                 body: formData
             });
             const result = await response.text();
-            
+
             if (result.startsWith("ERROR")) {
                 showAlert("Error", result, false);
             } else {
