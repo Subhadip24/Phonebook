@@ -5,6 +5,19 @@ Supports **Add**, **Search**, **Edit**, **Delete**, and **List** contacts. Data 
 
 ---
 
+A simple and secure digital Phonebook app. It's mobile-friendly and easy to manage contacts.
+
+Here are the links:
+Design preview: https://www.canva.com/design/DAGm-U_DNw8/6SogiHN5SjmgcxUI4cTg9g/edit?utm_content=DAGm-U_DNw8&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+Source code: https://github.com/workforakng/Phonebook/
+
+
+
+Live demo: https://nlink.at/Phone
+
+Check it out and let me know what you think!
+
 ## ✅ Features
 
 - Add/Search/Edit/Delete/List contacts
