@@ -4,6 +4,15 @@ A simple contact management application with both CLI and web interface support.
 Supports **Add**, **Search**, **Edit**, **Delete**, and **List** contacts. Data is stored in a file using binary tree logic.
 
 ---
+## Members
+
+AKSHAR NATH GORAIN 1213
+Subhadip Mondal  1186
+Rishit Chakraborty  1175
+Gayatri Das 1195
+Ayush Saha 1154
+
+---
 
 A simple and secure digital Phonebook app. It's mobile-friendly and easy to manage contacts.
 
