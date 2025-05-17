@@ -6,11 +6,11 @@ Supports **Add**, **Search**, **Edit**, **Delete**, and **List** contacts. Data 
 ---
 ## Members
 
-AKSHAR NATH GORAIN 1213
-Subhadip Mondal  1186
-Rishit Chakraborty  1175
-Gayatri Das 1195
-Ayush Saha 1154
+- AKSHAR NATH GORAIN 1213
+- Subhadip Mondal  1186
+- Rishit Chakraborty  1175
+- Gayatri Das 1195
+- Ayush Saha 1154
 
 ---
 
